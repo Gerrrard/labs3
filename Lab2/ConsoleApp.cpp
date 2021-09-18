@@ -1,10 +1,11 @@
-﻿#include <iostream>
+#include <iostream>
 #include <string.h>
 #include "tchar.h"
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
 #include "../StaticLib1/ACurve.h"
+#include "../StaticLib1/Utility.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
