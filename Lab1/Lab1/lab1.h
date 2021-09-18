@@ -5,17 +5,14 @@ namespace lab1Normal {
     class Matrix {
     public:
         Matrix(int rows, int cols, int* val, int* col, int* nz) :
-            rowNumber(rows), colNumber(cols), values(val), cols(col), notzero(nz), vector(nullptr){}
+            rowNumber(rows), colNumber(cols), values(val), cols(col), notzero(nz){}
         ~Matrix();
 
         void printMatrixFull();
         void printMatrixShort();
-        void printVector();
-        int operator[] (int i) { return vector[i]; }
+        void printVector(int*& vector);
     private:
-        void createVector();
-
-        int* vector;
+        void createVector(int*& vector);
 
         int rowNumber, colNumber;
         int* values;
@@ -30,19 +27,18 @@ namespace lab1Normal {
             MatrixOutput, VectorOutput, Waiting
         };
 
-        Dialog() : matrix(nullptr), option(options::Waiting) {};
+        Dialog() : option(options::Waiting) {};
         ~Dialog();
 
-        void matrixInput();
-        void matrixOutput();
-        void vectorOutput();
+        void matrixInput(Matrix*& matrix);
+        void matrixOutput(Matrix*& matrix);
+        void vectorOutput(Matrix*& matrix, int*& vector);
         void menu();
         options getOption() { return option; }
     private:
         const char* msg_menu = "0. Exit\n1. Input matrix\n2. Output matrix\n3. Output vector\n";
         const char* msg_menuCH = "Choose an option: ";
         options option;
-        Matrix* matrix;
     };
 
     bool is_digit(const char* S);

@@ -11,6 +11,8 @@ int main()
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	Dialog* dialog = new Dialog();
 	bool dial = true;
+	Matrix* matrix = nullptr;
+	int* vector = nullptr;	//such declaration means something similar to adding these objects from external regions
 
 	while (dial) {
 		switch (dialog->getOption()) {
@@ -19,17 +21,20 @@ int main()
 			dial = false;
 			break;
 		case Dialog::options::MatrixInput:
-			dialog->matrixInput();
+			dialog->matrixInput(matrix);
 			break;
 		case Dialog::options::MatrixOutput:
-			dialog->matrixOutput();
+			dialog->matrixOutput(matrix);
 			break;
 		case Dialog::options::VectorOutput:
-			dialog->vectorOutput();
+			dialog->vectorOutput(matrix, vector);
 			break;
 		case Dialog::options::Waiting:
 			dialog->menu();
 			break;
 		}
 	}
+
+	if(matrix != nullptr) delete matrix;
+	if (vector != nullptr) delete[] vector;
 }

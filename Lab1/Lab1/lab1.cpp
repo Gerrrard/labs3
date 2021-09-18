@@ -3,7 +3,7 @@
 #include <set>
 
 namespace lab1Normal {
-    void Dialog::matrixInput() {
+    void Dialog::matrixInput(Matrix*& matrix) {
         int rows, cols, errcode;
 
         if (matrix != nullptr) delete matrix;
@@ -31,8 +31,8 @@ namespace lab1Normal {
         } while (errcode);
 
         int* nz = new int[rows + 1];
-        int* values = new int[0];
-        int* columns = new int[0];
+        int* values = nullptr;   //nullptr
+        int* columns = nullptr;
         nz[0] = 0;
 
         int read;
@@ -57,15 +57,17 @@ namespace lab1Normal {
                     curRowNz++;
                 }
             }
-            //std::cout << curRowNz;
+
             nz[i + 1] = nz[i] + curRowNz;
             int* b = new int[nz[i + 1]];
             int* c = new int[nz[i + 1]];
 
 
-            for (int ii = 0; ii < nz[i]; ii++) {
-                b[ii] = values[ii];
-                c[ii] = columns[ii];
+            if (i != 0) {
+                for (int ii = 0; ii < nz[i]; ii++) {
+                    b[ii] = values[ii];
+                    c[ii] = columns[ii];
+                }
             }
 
             int iii = 0;
@@ -75,8 +77,10 @@ namespace lab1Normal {
                 iii++;
             }
 
-            delete[] columns;
-            delete[] values;
+            if (i != 0) {
+                delete[] columns;
+                delete[] values;
+            }
             columns = new int[nz[i + 1]];
             values = new int[nz[i + 1]];
 
@@ -95,7 +99,7 @@ namespace lab1Normal {
         matrix = new Matrix(rows, cols, values, columns, nz);
         option = options::Waiting;
     }
-    void Dialog::matrixOutput() {
+    void Dialog::matrixOutput(Matrix*& matrix) {
         if (matrix != nullptr) {
             const char* msg = "Enter 0 to short output and 1 to full: ";
             int errcode;
@@ -103,7 +107,7 @@ namespace lab1Normal {
 
             do {
                 errcode = getNum<int>(Opt, msg, true);
-                if (errcode) msg = "Error, not an integer number or number is too big (>2147483646) , repeat: ";
+                if (errcode) msg = "Error, not an integer number or number is too big (>2147483646) , repeat: ";    //delete
                 if (!errcode && Opt != 1 && Opt != 0) {
                     errcode = 1;
                     msg = "Error, no such mode, repeat: ";
@@ -122,9 +126,9 @@ namespace lab1Normal {
         }
         option = options::Waiting;
     }
-    void Dialog::vectorOutput() {
-        if (matrix != nullptr) {
-            matrix->printVector();
+    void Dialog::vectorOutput(Matrix*& matrix, int*& vector) {
+        if (matrix != nullptr){
+            matrix->printVector(vector);
         }
         else {
             std::cout << "Input matrix first!" << std::endl;
@@ -150,17 +154,15 @@ namespace lab1Normal {
         option = (options)Option;
     }
     Dialog::~Dialog() {
-        if (matrix != nullptr) delete matrix;
         std::cout << "Finished" << std::endl;
     }
 
     Matrix::~Matrix() {
-        delete[] vector;
         delete[] values;
         delete[] cols;
         delete[] notzero;
     }
-    void Matrix::createVector() {
+    void Matrix::createVector(int*& vector) {
         int* vals = new int[rowNumber];
         std::multiset<int> MS;
         int max;
@@ -171,8 +173,15 @@ namespace lab1Normal {
                 MS.insert(values[j]);
             }
             int temp = 0;
+            int cur = 0;
             for (const auto& el : MS) {
-                temp = MS.count(el);
+                if (cur != el) {
+                    cur = el;
+                    temp = 1;
+                }
+                else {
+                    temp++;
+                }
                 if (temp > max) max = temp;
             }
 
@@ -215,13 +224,13 @@ namespace lab1Normal {
         }
         std::cout << std::endl;
     }
-    void Matrix::printVector() {
+    void Matrix::printVector(int*& vector) {
         if (vector == nullptr) {
-            Matrix::createVector();
+            Matrix::createVector(vector);
         }
 
         for (int i = 0; i < rowNumber; i++) {
-            std::cout << (*this)[i] << " ";
+            std::cout << vector[i] << " ";
         }
         std::cout << std::endl << std::endl;
     }
