@@ -6,7 +6,7 @@
 namespace Menu {
     void start(Lab2::ASpiral* spir) {
         void (*dialog_functions[8])(Lab2::ASpiral * spiral) = { menuExit, menuParametrInput, menuDistance, menuSectorArea,
-            menuRingArea, menuTurnArea, menuLength , menuCurvatureRadius };
+            menuRingArea, menuTurnArea, menuLength , menuCurvatureRadius }; //because of this cant do every method as const, menuParametrInput shouldn't be const
 
         int opt = 10;
 
