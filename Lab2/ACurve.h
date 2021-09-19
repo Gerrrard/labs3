@@ -1,6 +1,6 @@
 #ifndef _SPIRAL_H_
 #define _SPIRAL_H_
-#include <math.h>
+
 namespace Lab2 {
 	class ASpiral {
 	private:
