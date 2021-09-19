@@ -6,6 +6,7 @@
 #include <string.h>
 #include <iostream>
 #include "ACurve.h"
+#include <math.h>
 
 namespace Lab2 {
 	void ASpiral::setA(double _a)
