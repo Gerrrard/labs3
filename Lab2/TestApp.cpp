@@ -25,7 +25,6 @@ TEST(CircleMethods, Setters)
 TEST(CircleMethods, DistanceMethod)
 {
 	Lab2::ASpiral a1;
-	const double err = 0.00001;
 	ASSERT_EQ(0, a1.distance(0));
 	ASSERT_EQ(1, a1.distance(1));
 	Lab2::ASpiral a2(5);
