@@ -1,12 +1,8 @@
-//#include "stdafx.h"
-#include "pch.h"
-#include "framework.h"
 #include <strstream>
-#include <stdio.h>
-#include <string.h>
+#include <cstring>
 #include <iostream>
 #include "ACurve.h"
-#include <math.h>
+#include <cmath>
 
 namespace Lab2 {
 	void ASpiral::setA(double _a)
