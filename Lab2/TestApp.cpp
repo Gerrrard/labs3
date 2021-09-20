@@ -1,4 +1,3 @@
-//#include "stdafx.h"
 #include <iostream>
 #include "../StaticLib1/ACurve.h"
 #include "gtest/gtest.h"
