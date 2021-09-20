@@ -3,8 +3,8 @@
 #include "ACurve.h"
 
 namespace Utility {
-	bool is_Int(const char* S);
-	bool is_Double(const char* S);
+	bool isInt(const char* S);
+	bool isDouble(const char* S);
 	template <class V> int getNum(V& a, const char* msg);
 }
 
