@@ -162,7 +162,7 @@ namespace Menu {
 }
 
 namespace Utility {
-    bool is_Int(const char* S) {
+    bool isInt(const char* S) {
         const char* temp = "0123456789-+";
         unsigned point_count = 0;
 
@@ -172,7 +172,7 @@ namespace Utility {
         }
         return true;
     }
-    bool is_Double(const char* S) {
+    bool isDouble(const char* S) {
         const char* temp = ".0123456789-+";
         unsigned point_count = 0;
 
@@ -197,13 +197,13 @@ namespace Utility {
         char S[N];
 
         std::cin.getline(S, N, '\n');
-        if (!is_Double(S) || S[0] == '\0') {
+        if (!isDouble(S) || S[0] == '\0') {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             return -2;
         }
 
-        if (is_Int(S)) {
+        if (isInt(S)) {
             a = atoi(S);
         }
         else {
